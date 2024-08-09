@@ -1,13 +1,14 @@
 import express from "express";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
-import userController from "./controllers/user.controller";
 import userRouter from "./routes/user.route";
 import registerRouter from "./routes/register.route";
 import loginRouter from "./routes/login.route";
+import cookieParser from "cookie-parser";
 
 const app = express();
 app.use(express.json());
+app.use(cookieParser());
 
 dotenv.config();
 
@@ -15,9 +16,9 @@ app.get("/", (_, res) => {
   res.send("ok");
 });
 
-app.use("/user", userRouter);
-app.use("/register", registerRouter);
-app.use("/login", loginRouter);
+app.use("/api/v1/user", userRouter);
+app.use("/api/v1/register", registerRouter);
+app.use("/api/v1/login", loginRouter);
 
 mongoose
   .connect(process.env.DB_URI as string)

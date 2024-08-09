@@ -1,5 +1,7 @@
 import userRepository from "../repositories/user.repository";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
 
 const authService = {
   login: async (data: { email: string; password: string }) => {
@@ -18,10 +20,20 @@ const authService = {
       user.password as string
     );
 
-    if (isPasswordMatch) {
-      return user;
-    } else {
+    if (!isPasswordMatch) {
       throw new Error("authentication failed");
+    } else {
+      const { _id, name, email } = user;
+      // authorization using jwt
+      const accessToken = jwt.sign(
+        { userId: user._id },
+        process.env.ACCESS_TOKEN_KEY as string
+      );
+      const refreshToken = jwt.sign(
+        { userId: user._id },
+        process.env.REFRESH_TOKEN_KEY as string
+      );
+      return { user: { _id, name, email }, accessToken, refreshToken };
     }
   },
 };
