@@ -43,48 +43,13 @@ const authService = {
     });
     return { user: { _id, name, email }, accessToken, refreshToken };
   },
-  authorize: async (
-    accessToken: string | null,
-    refreshToken: string | null
-  ) => {
-    // check whether accessToken and refreshToken exist
-    if (!accessToken || !refreshToken)
-      throw new noTokenError("authorization failed");
-
-    // verify accessToken
-    try {
-      const { userId, name } = jwt.verify(
-        accessToken,
-        process.env.ACCESS_TOKEN_KEY as string
-      ) as { userId: string; name: string };
-      return { userId, name, accessToken };
-    } catch (error) {
-      // todo issue new accesstoken
-      const { userId, name, accessToken } =
-        await authService.issueNewAccessToken(refreshToken);
-      return { userId, name, accessToken };
-    }
+  logout: async (refreshToken: string) => {
+    await refreshTokenRepository.delete(refreshToken);
+    return;
   },
-  issueNewAccessToken: async (refreshToken: string) => {
-    // check whether refreshtoken exist in db
-    const refreshTokenDB = refreshTokenRepository.get(refreshToken);
-    if (!refreshTokenDB) throw new noTokenError("authorization failed");
-
-    // verify the refreshtoken
-    try {
-      const { userId, name } = jwt.verify(
-        refreshToken,
-        process.env.REFRESH_TOKEN_KEY as string
-      ) as { userId: string; name: string };
-      const newAccessToken = jwt.sign(
-        { userId, name },
-        process.env.ACCESS_TOKEN_KEY as string,
-        { expiresIn: Number(process.env.ACCESS_TOKEN_EXPIRE) }
-      );
-      return { userId, name, accessToken: newAccessToken };
-    } catch (error) {
-      throw new noTokenError("authorization failed");
-    }
+  logoutAll: async (userId: string) => {
+    await refreshTokenRepository.deleteAll(userId);
+    return;
   },
 };
 

@@ -39,6 +39,7 @@ async function authMiddleware(req: Request, res: Response, next: NextFunction) {
       res.cookie("accessToken", newAccessToken);
       res.locals = { id: userId, name };
     } catch (error) {
+      // relogin if refreshtoken is invalid
       return res.status(401).json({ message: "please re-login" });
     }
   }

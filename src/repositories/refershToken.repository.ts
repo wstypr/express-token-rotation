@@ -10,10 +10,12 @@ const refreshTokenRepository = {
     return newRefreshToken;
   },
   delete: async (token: string) => {
-    const deletedRefreshToken = await refreshTokenModel.findOneAndDelete({
+    await refreshTokenModel.findOneAndDelete({
       token,
     });
-    return deletedRefreshToken;
+  },
+  deleteAll: async (userId: string) => {
+    await refreshTokenModel.deleteMany({ userId });
   },
   get: async (token: string) => {
     const tokenDB = await refreshTokenModel.findOne({ token });
