@@ -1,9 +1,9 @@
 ### get all user
-GET http://localhost:8000/user
+GET http://localhost:8000/api/v1/user
 
 
 ### register new user
-POST http://localhost:8000/register
+POST http://localhost:8000/api/v1/register
 Content-Type: application/json
 
 {
@@ -14,7 +14,7 @@ Content-Type: application/json
 
 
 ### login user
-POST http://localhost:8000/login
+POST http://localhost:8000/api/v1/login
 Content-Type: application/json
 
 {
