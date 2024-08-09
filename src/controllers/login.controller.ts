@@ -8,8 +8,8 @@ const loginController = {
         req.body
       );
       return res
-        .cookie("accessToken", accessToken)
-        .cookie("refreshToken", refreshToken)
+        .cookie("accessToken", accessToken, { httpOnly: true })
+        .cookie("refreshToken", refreshToken, { httpOnly: true })
         .status(200)
         .json({ message: "logged in", user });
     } catch (error) {
