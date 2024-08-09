@@ -9,6 +9,10 @@ const todoService = {
     userId: string,
     data: { content: string; isDone: boolean }
   ) => {
+    // input validation
+    if (data.content.length === 0)
+      throw new Error("content and isdone must be provided");
+
     const newTodo = await todoRepository.create(userId, data);
     return newTodo;
   },

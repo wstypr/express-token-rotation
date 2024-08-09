@@ -1,9 +1,10 @@
 import { Router } from "express";
 import authMiddleware from "../middlewares/auth.middleware";
-import authService from "../service/auth.service";
+import logoutController from "../controllers/logout.controller";
 
-const logoutRouter = Router()
+const logoutRouter = Router();
 
-logoutRouter.use(authMiddleware)
+logoutRouter.use(authMiddleware);
 
-logoutRouter.post("/",()=>{})
+logoutRouter.post("/", logoutController.handleLogout);
+logoutRouter.post("/all", logoutController.handleLogoutAll);

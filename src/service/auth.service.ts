@@ -2,7 +2,6 @@ import userRepository from "../repositories/user.repository";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import refreshTokenRepository from "../repositories/refershToken.repository";
-import noTokenError from "../errors/notoken.error";
 
 const authService = {
   login: async (data: { email: string; password: string }) => {

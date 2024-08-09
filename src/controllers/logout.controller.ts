@@ -21,3 +21,5 @@ const logoutController = {
       .json({ message: "logout all success" });
   },
 };
+
+export default logoutController;

@@ -11,8 +11,14 @@ const todoController = {
     const user = res.locals;
     const data = req.body;
 
-    const newTodo = await todoService.create(user.id, data);
-    return res.status(201).json({ data: newTodo });
+    try {
+      const newTodo = await todoService.create(user.id, data);
+      return res.status(201).json({ data: newTodo });
+    } catch (error) {
+      if (error instanceof Error) {
+        return res.status(400).json({ message: error.message });
+      }
+    }
   },
 };
 
