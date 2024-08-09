@@ -3,6 +3,8 @@ import dotenv from "dotenv";
 import mongoose from "mongoose";
 import userController from "./controllers/user.controller";
 import userRouter from "./routes/user.route";
+import registerRouter from "./routes/register.route";
+import loginRouter from "./routes/login.route";
 
 const app = express();
 app.use(express.json());
@@ -15,6 +17,7 @@ app.get("/", (_, res) => {
 
 app.use("/user", userRouter);
 app.use("/register", registerRouter);
+app.use("/login", loginRouter);
 
 mongoose
   .connect(process.env.DB_URI as string)

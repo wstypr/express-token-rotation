@@ -10,10 +10,12 @@ const userController = {
   handleCreate: async (req: Request, res: Response) => {
     // create a user
     try {
-      const newUser = userService.create(req.body);
+      const newUser = await userService.create(req.body);
       return res.status(201).json({ newUser });
     } catch (error) {
-      return res.status(401).json({ error });
+      if (error instanceof Error) {
+        return res.status(400).json({ error: error.message });
+      }
     }
   },
   handleDelete: async (id: string) => {

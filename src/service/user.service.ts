@@ -2,10 +2,10 @@ import userRepository from "../repositories/user.repository";
 import bcrypt from "bcrypt";
 
 const userService = {
-  getAll: () => {
+  getAll: async () => {
     // get all users
     try {
-      const allUsers = userRepository.getAll();
+      const allUsers = await userRepository.getAll();
       return allUsers;
     } catch (error) {
       console.log("error get all users", error);
@@ -26,7 +26,14 @@ const userService = {
 
     // hash password
     const hashedPassword = await bcrypt.hash(password, 13);
-    console.log({ name, email, password: hashedPassword });
+
+    // save to db
+    const newUser = await userRepository.create({
+      name,
+      email,
+      password: hashedPassword,
+    });
+    return newUser;
   },
 };
 
