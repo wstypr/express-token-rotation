@@ -8,3 +8,5 @@ logoutRouter.use(authMiddleware);
 
 logoutRouter.post("/", logoutController.handleLogout);
 logoutRouter.post("/all", logoutController.handleLogoutAll);
+
+export default logoutRouter;

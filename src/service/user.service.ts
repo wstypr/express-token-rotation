@@ -15,7 +15,6 @@ const userService = {
     const { name, email, password } = data;
     // input validation
     // input validation: name must exist
-    console.log(name);
     if (name.length === 0) throw Error("name must be provided");
 
     // input validation: email must exist
@@ -23,7 +22,7 @@ const userService = {
 
     // input validation: password must exist
     if (password.length === 0) throw Error("password must be provided");
-    
+
     // input validation: email collision check
     const existedUser = await userRepository.getOneByEmail(email);
     if (existedUser) throw Error("email already registered");

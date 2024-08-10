@@ -5,6 +5,7 @@ import userRouter from "./routes/user.route";
 import todoRouter from "./routes/todo.route";
 import registerRouter from "./routes/register.route";
 import loginRouter from "./routes/login.route";
+import logoutRouter from "./routes/logout.route";
 import cookieParser from "cookie-parser";
 
 const app = express();
@@ -21,6 +22,7 @@ app.use("/user", userRouter);
 app.use("/api/v1/register", registerRouter);
 app.use("/api/v1/login", loginRouter);
 app.use("/api/v1/todo", todoRouter);
+app.use("/api/v1/logout", logoutRouter);
 
 mongoose
   .connect(process.env.DB_URI as string)
