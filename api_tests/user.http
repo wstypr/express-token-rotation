@@ -1,5 +1,5 @@
 ### get all user
-GET http://localhost:8000/api/v1/user
+GET http://localhost:8000/user
 
 
 ### register new user
@@ -8,7 +8,7 @@ Content-Type: application/json
 
 {
     "name": "r",
-    "email": "w@mail.com",
+    "email": "aa@mail.com",
     "password": "rahasia123"
 }
 
@@ -18,8 +18,8 @@ POST http://localhost:8000/api/v1/login
 Content-Type: application/json
 
 {
-    "email": "1@mail.com",
-    "password": "123"
+    "email": "w@mail.com",
+    "password": "rahasia123"
 }
 
 ### request resource
